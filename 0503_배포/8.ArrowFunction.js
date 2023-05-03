@@ -29,4 +29,52 @@
 //   return y;
 // };
 
+function f1() {
+    return 10;
+}
+
+let res = f1();
+console.log(res);
+
+const f2 = () => {
+    return 20;
+};
+
+function f3(x) {
+    return x + 10;
+}
+res = f3(100);
+console.log(res);
+
+const f4 = (x) => x + 10; // 함수 내용이 한줄인경우 중괄호, return생략 가능
+
+res = f4(200);
+console.log(res);
+
+function f5(x, y) {
+    return x + y;
+}
+
+const f6 = (x, y) => {
+    // 인자가 두개 이상이라면 괄호 필수
+    return x + y;
+};
+
 // Arrow Function에서는 this가 바인딩 되지 않음.
+const id = "ssafy";
+const name = "권영재";
+const age = 26;
+const user = {
+    id,
+    name,
+    age,
+    // info: function () {
+    //     console.log(this.id, this.name, this.age);
+    // },
+    info: () => {
+        console.log(this.name + "(" + this.id + ") 나이 : " + this.age);
+    },
+};
+console.log(user);
+user.info();
+// fetch().then((response) => response.json()).then(data => make(data));

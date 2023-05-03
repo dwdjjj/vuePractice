@@ -6,5 +6,31 @@
 // const a = new Function('x', 'y', 'return x + y') // 함수 생성자
 
 // ES6 이전
+// const id = "ssafy";
+// const name = "권영재";
+// const age = 26;
+// const user = {
+//     id: id,
+//     name: name,
+//     age: age,
+//     info: function () {
+//         console.log(id, name, age);
+//     }
+// };
 
+// user.info();
 // ES6 이후
+
+const id = "ssafy";
+const name = "권영재";
+const age = 26;
+const user = {
+    id,
+    name,
+    age,
+    info: function () {
+        console.log(this.id, this.name, this.age);
+    },
+};
+
+user.info();
