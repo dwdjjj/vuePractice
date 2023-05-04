@@ -12,7 +12,7 @@
         <div id="app">
             <h2>범위지정(4)</h2>
             <!-- <span v-for="(item, index) in items" :key="index"></span> -->
-            <span v-for="i in 4"> {{i}} </span>
+            <span v-for="i in num"> {{i}} </span>
 
             <h2>문자열 배열</h2>
             <ul>
@@ -23,12 +23,29 @@
             <ul>
                 <li v-for="(name, i) in regions">번호 : {{i}}, 지역 : {{name}}</li>
             </ul>
+
+            <h2>객체 반복</h2>
+            <div>{{student}}</div>
+            <br />
+            <div>{{student.id}}</div>
+            <br />
+            <div v-for="val in student">{{val}}</div>
+            <ul>
+                <li v-for="(val, name) in student">{{name}}: {{val}}</li>
+            </ul>
         </div>
         <script>
             new Vue({
                 el: "#app",
                 data: {
                     regions: ["광주", "구미", "대전", "서울", "부울경"],
+                    num: 10,
+                    student: {
+                        id: "dwdjjj",
+                        name: "영재",
+                        age: 26,
+                        regions: "jeongeup",
+                    },
                 },
             });
         </script>
