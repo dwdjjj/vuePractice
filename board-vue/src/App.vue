@@ -1,9 +1,19 @@
 <template>
-    <div id="app"></div>
+    <div id="app">
+        <the-header></the-header>
+        <app-board></app-board>
+    </div>
 </template>
 
 <script>
-export default {};
+import TheHeader from "./components/TheHeader.vue";
+import AppBoard from "./views/AppBoard.vue";
+export default {
+    components: {
+        TheHeader,
+        AppBoard,
+    },
+};
 </script>
 
 <style>

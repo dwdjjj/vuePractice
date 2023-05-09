@@ -1,16 +1,19 @@
 <template>
-  <tr>
-    <td>글번호</td>
-    <td>제목</td>
-    <td>작성자</td>
-    <td>조회수</td>
-    <td>작성일</td>
-  </tr>
+    <tr>
+        <td>{{ article.articleNo }}</td>
+        <td>{{ article.subject }}</td>
+        <td>{{ article.userName }}</td>
+        <td>{{ article.hit }}</td>
+        <td>{{ article.registerTime }}</td>
+    </tr>
 </template>
 
 <script>
 export default {
-  name: "BoardListItem",
+    name: "BoardListItem",
+    props: {
+        article: Object,
+    },
 };
 </script>
 
