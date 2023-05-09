@@ -20,16 +20,12 @@ export default {
         };
     },
     methods: {
-        // toggleFlag() {
-        //     this.$store.state.showflag = event.currentTarget.innerText;
-        //     console.log(this.$store.state.showflag);
-        // },
         setFlag(res) {
             this.$store.commit("SET_FLAG", res);
         },
     },
     created() {
-        this.flagArr = ["게시판", "글쓰기", "글수정", "글삭제", "로그인"];
+        this.flagArr = ["글목록", "글쓰기", "글수정", "글삭제", "로그인"];
     },
 };
 </script>

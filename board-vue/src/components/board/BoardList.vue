@@ -2,7 +2,7 @@
     <div>
         <h1 class="underline">도서 목록</h1>
         <div style="text-align: right">
-            <button @click="movePage">도서 등록</button>
+            <button style="min-width: 120px" @click="movePage">도서 등록</button>
         </div>
         <div v-if="getTotalCnt() > 0">
             <table id="article-list">
@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <board-list-item v-for="article in articles" :article="article" :key="article.articleNo"></board-list-item>
+                    <board-list-item v-for="article in articles" :article="article" :key="article.articleNo" @viewArticle="moveView"></board-list-item>
                 </tbody>
             </table>
         </div>
@@ -72,10 +72,15 @@ export default {
     },
     methods: {
         movePage() {
-            console.log("도서등록 페이지로 이동해보기");
+            this.$store.commit("SET_FLAG", "글쓰기");
         },
         getTotalCnt() {
             return this.articles.length;
+        },
+        moveView(article) {
+            console.log(article);
+            this.$emit("articleToBoard", article);
+            this.$store.commit("SET_FLAG", "글보기");
         },
     },
 };

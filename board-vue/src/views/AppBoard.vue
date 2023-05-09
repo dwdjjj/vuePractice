@@ -1,16 +1,57 @@
 <template>
     <div>
         <h2>Vue를 이용한 게시판</h2>
-        <board-list></board-list>
+        <board-list v-if="checkValue('글목록')" @articleToBoard="detailArticle"></board-list>
+        <board-write v-else-if="checkValue('글쓰기')" @setArticle="getArticle"></board-write>
+        <board-view v-else-if="checkValue('글보기')" :article="this.article"></board-view>
+        <board-modify v-else-if="checkValue('글수정')"></board-modify>
+        <board-delete v-else-if="checkValue('글삭제')"></board-delete>
+        <app-user v-else-if="checkValue('로그인')"></app-user>
     </div>
 </template>
 
 <script>
 import BoardList from "@/components/board/BoardList.vue";
+import BoardWrite from "@/components/board/BoardWrite.vue";
+import BoardModify from "@/components/board/BoardModify.vue";
+import BoardView from "@/components/board/BoardView.vue";
+import BoardDelete from "@/components/board/BoardDelete.vue";
+import AppUser from "./AppUser.vue";
+
 export default {
     name: "AppBoard",
     components: {
         BoardList,
+        BoardWrite,
+        BoardModify,
+        BoardView,
+        AppUser,
+        BoardDelete,
+    },
+    props: ["articleFromChild"],
+    data() {
+        return {
+            article: {},
+        };
+    },
+    methods: {
+        checkValue: function (s) {
+            // console.log(this.$store.state.showflag);
+            // console.log("인자 : " + s);
+            if (this.$store.state.showflag == s) {
+                // console.log(s);
+                return true;
+            } else return false;
+        },
+        getArticle(article) {
+            console.log(article);
+            this.article = article;
+            this.$store.commit("SET_FLAG", "글보기");
+        },
+        detailArticle(article) {
+            console.log(article);
+            this.article = article;
+        },
     },
 };
 </script>
