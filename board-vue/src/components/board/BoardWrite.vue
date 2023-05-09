@@ -8,6 +8,7 @@
             <input type="text" id="subject" ref="subject" v-model="article.subject" /><br />
             <label for="content">내용</label>
             <br />
+            <input type="hidden" id="hit" ref="hit" v-model="article.hit" value="0" />
             <textarea id="content" ref="content" cols="35" rows="5" v-model="article.content"></textarea><br />
             <button @click="registArticle">등록</button>
             <button @click="moveList">목록</button>
@@ -46,6 +47,7 @@ export default {
             //     subject: this.subject,
             //     content: this.content,
             // };
+            this.article.registerTime = new Date();
             this.$emit("setArticle", this.article);
             console.log(this.article);
             this.$store.commit("SET_FLAG", "글목록");

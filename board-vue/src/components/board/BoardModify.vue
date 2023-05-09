@@ -2,13 +2,13 @@
     <div class="regist">
         <h1 class="underline">SSAFY 게시글 수정</h1>
         <div class="regist_form">
-            <label for="userid">작성자</label>
-            <input type="text" id="userid" ref="userid" /><br />
+            <label for="userName">작성자</label>
+            <input type="text" id="userName" ref="userName" v-model="article.userName" /><br />
             <label for="subject">제목</label>
-            <input type="text" id="subject" ref="subject" /><br />
+            <input type="text" id="subject" ref="subject" v-model="article.subject" /><br />
             <label for="content">내용</label>
             <br />
-            <textarea id="content" ref="content" cols="35" rows="5"></textarea><br />
+            <textarea id="content" ref="content" cols="35" rows="5" v-model="article.content"></textarea><br />
             <button @click="checkValue">수정</button>
             <button @click="moveList">목록</button>
         </div>
@@ -18,6 +18,7 @@
 <script>
 export default {
     name: "BoardModify",
+    props: ["oldArticle"],
     data() {
         return {
             article: {},
