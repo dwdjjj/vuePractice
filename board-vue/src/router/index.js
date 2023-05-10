@@ -3,12 +3,59 @@ import VueRouter from "vue-router";
 
 Vue.use(VueRouter);
 
+function loadView(view) {
+    return () => import(/* webpackChunkName: "about" */ `@/views/${view}.vue`);
+}
+
+function loadBoard(name) {
+    return () => import(/* webpackChunkName: "about" */ `@/components/boardR/${name}.vue`);
+}
+
 const routes = [
-    // {
-    //     path: "/",
-    //     name: "home",
-    //     component: HomeView,
-    // },
+    {
+        path: "/index.html",
+        name: "index",
+        component: loadView("AppBoard"),
+        redirect: "/",
+    },
+    {
+        path: "/board",
+        name: "board",
+        component: loadView("AppRouteBoard"),
+        redirect: "/board/list",
+        children: [
+            {
+                path: "list",
+                name: "boardlist",
+                component: loadBoard("BoardList"),
+            },
+            {
+                path: "write",
+                name: "boardwrite",
+                component: loadBoard("BoardWrite"),
+            },
+            {
+                path: "view/:no",
+                name: "boardview",
+                component: loadBoard("BoardView"),
+            },
+            {
+                path: "modify",
+                name: "boardmodify",
+                component: loadBoard("BoardModify"),
+            },
+            {
+                path: "delete",
+                name: "boarddelete",
+                component: loadBoard("BoardDelete"),
+            },
+        ],
+    },
+    {
+        path: "/login",
+        name: "login",
+        component: loadView("AppUser"),
+    },
     // {
     //     path: "/about",
     //     name: "about",

@@ -1,13 +1,18 @@
 <template>
     <div class="header">
         <img src="../assets/ssafy_logo.png" alt="" />
-        <div>
+        <!-- <div>
             <h3>{{ $store.state.showflag }} 컴포넌트 보여주기</h3>
-        </div>
-        <div>
             <a href="" @click.prevent v-for="(item, index) in flagArr" :flag="item" :key="index" @click="setFlag(item)">{{ item }} </a>
-        </div>
+        </div> -->
+
         <!-- <div><a href="">로그인</a> | <a href="">게시판</a> | <a href="" @click.prevent @click="toggleFlag()">글쓰기</a> | {{ $store.state.showflag }}</div> -->
+        <div>
+            <h3>Router 사용해서 이동</h3>
+            <router-link to="/board">list</router-link>
+            <router-link to="/board/write">write</router-link>
+            <router-link to="/login">login</router-link>
+        </div>
     </div>
 </template>
 
@@ -25,7 +30,7 @@ export default {
         },
     },
     created() {
-        this.flagArr = ["글목록", "글쓰기", "글수정", "글삭제", "로그인"];
+        this.flagArr = ["글목록", "글쓰기", "글수정", "글삭제"];
     },
 };
 </script>
@@ -44,6 +49,7 @@ img {
 a {
     font-weight: bold;
     color: #2c3e50;
+    margin-left: 10px;
 }
 
 a:hover {

@@ -1,51 +1,23 @@
 <template>
     <div>
-        <h2>Vue를 이용한 게시판(컴포넌트 선택)</h2>
-        <board-list v-if="checkValue('글목록')" @articleToBoard="detailArticle"></board-list>
-        <board-write v-else-if="checkValue('글쓰기')" @setArticle="getArticle"></board-write>
-        <board-view v-else-if="checkValue('글보기')" :article="article" @modify="modifyArticle"></board-view>
-        <board-modify v-else-if="checkValue('글수정')" :articleProps="this.article"></board-modify>
-        <board-delete v-else-if="checkValue('글삭제')" :article="this.article"></board-delete>
-        <app-user v-else-if="checkValue('로그인')"></app-user>
+        <h2>router 이동 게시판</h2>
+        <router-view></router-view>
     </div>
 </template>
 
 <script>
-import BoardList from "@/components/board/BoardList.vue";
-import BoardWrite from "@/components/board/BoardWrite.vue";
-import BoardModify from "@/components/board/BoardModify.vue";
-import BoardView from "@/components/board/BoardView.vue";
-import BoardDelete from "@/components/board/BoardDelete.vue";
-import AppUser from "./AppUser.vue";
-
 export default {
-    name: "AppBoard",
-    components: {
-        BoardList,
-        BoardWrite,
-        BoardModify,
-        BoardView,
-        AppUser,
-        BoardDelete,
-    },
+    name: "AppBoardRoute",
+    components: {},
     data() {
         return {
             article: {},
         };
     },
     methods: {
-        checkValue: function (s) {
-            // console.log(this.$store.state.showflag);
-            // console.log("인자 : " + s);
-            if (this.$store.state.showflag == s) {
-                // console.log(s);
-                return true;
-            } else return false;
-        },
         getArticle(article) {
             console.log(article);
             this.article = article;
-            this.$store.commit("SET_FLAG", "글보기");
         },
         detailArticle(article) {
             console.log(article);
@@ -55,7 +27,7 @@ export default {
             console.log("글상세조회 -> 수정으로", article);
             this.article = article;
             console.dir(this.article);
-            this.$refs.child_component.article = article;
+            // this.$refs.child_component.article = article;
         },
     },
 };
