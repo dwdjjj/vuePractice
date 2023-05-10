@@ -18,7 +18,9 @@
 <script>
 export default {
     name: "BoardModify",
-    props: ["oldArticle"],
+    props: {
+        articleProps: {},
+    },
     data() {
         return {
             article: {},
@@ -52,6 +54,7 @@ export default {
     created() {
         // 비동기
         // TODO : 글번호에 해당하는 글정보 얻기.
+        this.article = this.articleProps;
     },
 };
 </script>

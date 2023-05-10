@@ -16,7 +16,7 @@
             <div class="view">{{ article.content }}</div>
 
             <div style="padding-top: 15px">
-                <a href="" @click.prevent @click="moveModify(article)" class="btn">수정</a>
+                <a href="" @click.prevent @click="modify" class="btn">수정</a>
                 <a href="" @click.prevent @click="setFlag('글삭제')" class="btn">삭제</a>
                 <a href="" @click.prevent @click="setFlag('글목록')" class="btn">목록</a>
             </div>
@@ -27,21 +27,21 @@
 <script>
 export default {
     name: "BoardView",
-    props: ["article"],
+    props: {
+        article: {},
+    },
     data() {
         return {};
     },
     created() {
         // 비동기
         // TODO : 글번호에 해당하는 글정보 얻기.
+        console.log(this.article);
     },
     methods: {
-        setFlag(res) {
-            this.$store.commit("SET_FLAG", res);
-        },
-        moveModify(article) {
-            console.log(article);
-            this.$emit("viewToBoard", article);
+        modify() {
+            console.log(this.article);
+            this.$emit("modify", this.article);
             this.$store.commit("SET_FLAG", "글수정");
         },
     },
