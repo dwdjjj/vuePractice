@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <table>
+                <tr>
+                    <th>글번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>작성일</th>
+                </tr>
+                <tr v-for="article in this.boardlist" :key="article.articleno">
+                    <td>{{article.articleno}}</td>
+                    <td>{{article.subject}}</td>
+                    <td>{{article.userid}}</td>
+                    <td>{{article.hit}}</td>
+                    <td>{{article.regtime}}</td>
+                </tr>
+            </table>
+        </div>
+        <script>
+            const url = "http://localhost:9999/vue/board";
+            new Vue({
+                el: "#app",
+                data() {
+                    return {
+                        boardlist: [],
+                    };
+                },
+                created() {
+                    axios.get(url).then((response) => {
+                        console.log(response);
+                        this.boardlist = response.data;
+                    });
+                },
+            });
+        </script>
+    </body>
+</html>
