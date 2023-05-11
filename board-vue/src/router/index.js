@@ -10,6 +10,9 @@ function loadView(view) {
 function loadBoard(name) {
     return () => import(/* webpackChunkName: "about" */ `@/components/boardR/${name}.vue`);
 }
+function loadMain(contentName) {
+    return () => import(/* webpackChunkName: "about" */ `@/components/main/${contentName}.vue`);
+}
 
 const routes = [
     {
@@ -56,14 +59,24 @@ const routes = [
         name: "login",
         component: loadView("AppUser"),
     },
-    // {
-    //     path: "/about",
-    //     name: "about",
-    //     // route level code-splitting
-    //     // this generates a separate chunk (about.[hash].js) for this route
-    //     // which is lazy-loaded when the route is visited.
-    //     component: () => import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
-    // },
+    {
+        path: "/main",
+        name: "main",
+        component: loadView("AppMain"),
+        children: [
+            { path: "", name: "main1", component: loadMain("MainContent1") },
+            {
+                path: "2",
+                name: "main2",
+                component: loadMain("MainContent2"),
+            },
+            {
+                path: ":isbn",
+                name: "main3",
+                component: loadMain("MainContent3"),
+            },
+        ],
+    },
 ];
 
 const router = new VueRouter({

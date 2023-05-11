@@ -12,6 +12,7 @@
             <router-link to="/board">list</router-link>
             <router-link to="/board/write">write</router-link>
             <router-link to="/login">login</router-link>
+            <router-link to="/main">main</router-link>
         </div>
     </div>
 </template>
