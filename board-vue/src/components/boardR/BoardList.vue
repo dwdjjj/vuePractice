@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <board-list-item v-for="article in articles" :article="article" :key="article.articleNo" @viewArticle="moveView"></board-list-item>
+                    <board-list-item v-for="article in boardlist" :article="article" :key="article.articleno" @viewArticle="moveView"></board-list-item>
                 </tbody>
             </table>
         </div>
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import BoardListItem from "./BoardListItem.vue";
 export default {
     name: "BoardList",
@@ -40,48 +41,25 @@ export default {
     },
     data() {
         return {
-            articles: [],
+            boardlist: [],
         };
     },
     created() {
         // 비동기
         // TODO : 글목록 얻기.
-        let articleList = JSON.parse(localStorage.getItem("articleList"));
-        if (articleList != null || articleList != undefined) {
-            this.articles = articleList;
-        } else {
-            this.articles = [
-                {
-                    articleNo: 3,
-                    userName: "권영재",
-                    subject: "안녕하세요",
-                    hit: 11,
-                    registerTime: "2023-05-08 17:03:15",
-                },
-                {
-                    articleNo: 2,
-                    userName: "김싸피",
-                    subject: "안녕하세요5",
-                    hit: 14,
-                    registerTime: "2023-05-08 14:13:15",
-                },
-                {
-                    articleNo: 1,
-                    userName: "박싸피",
-                    subject: "안녕하세요4",
-                    hit: 43,
-                    registerTime: "2023-05-07 11:03:15",
-                },
-            ];
-            localStorage.setItem("articleList", JSON.stringify(this.articles));
-        }
+        const url = "http://localhost:9999/vue/board";
+
+        axios.get(url).then((response) => {
+            console.log(response);
+            this.boardlist = response.data;
+        });
     },
     methods: {
         moveWrite() {
             this.$router.push("/board/write");
         },
         getTotalCnt() {
-            return this.articles.length;
+            return this.boardlist.length;
         },
         moveView(article) {
             console.log(article);

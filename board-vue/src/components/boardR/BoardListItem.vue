@@ -1,10 +1,10 @@
 <template>
     <tr>
-        <td>{{ article.articleNo }}</td>
-        <td @click="viewArticle(article.articleNo)">{{ article.subject }}</td>
-        <td>{{ article.userName }}</td>
+        <td>{{ article.articleno }}</td>
+        <td @click="viewArticle(article.articleno)">{{ article.subject }}</td>
+        <td>{{ article.userid }}</td>
         <td>{{ article.hit }}</td>
-        <td>{{ article.registerTime }}</td>
+        <td>{{ article.regtime }}</td>
     </tr>
 </template>
 

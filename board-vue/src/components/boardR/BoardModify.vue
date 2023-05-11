@@ -2,9 +2,9 @@
     <div class="regist">
         <h1 class="underline">SSAFY 게시글 수정</h1>
         <div class="regist_form">
-            <input type="hidden" id="articleNo" ref="articleNo" v-model="article.articleNo" /><br />
-            <label for="userName">작성자</label>
-            <input type="text" id="userName" ref="userName" v-model="article.userName" /><br />
+            <input type="hidden" id="articleno" ref="articleno" v-model="article.articleno" /><br />
+            <label for="userid">작성자</label>
+            <input type="text" id="userid" ref="userid" v-model="article.userid" /><br />
             <label for="subject">제목</label>
             <input type="text" id="subject" ref="subject" v-model="article.subject" /><br />
             <label for="content">내용</label>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name: "BoardModify",
     data() {
@@ -43,15 +44,13 @@ export default {
             console.log("글수정 하러가자!!!!");
             // 비동기
             // TODO : 글번호에 해당하는 글정보 수정.
-            let articles = JSON.parse(localStorage.getItem("articleList"));
-            console.log(this.article);
-            for (let i = 0; i < articles.length; i++) {
-                if (articles[i].articleNo == this.article.articleNo) {
-                    articles[i] = this.article;
-                    console.dir("new article", articles[i]);
-                }
-            }
-            localStorage.setItem("articleList", JSON.stringify(articles));
+            let url = "http://localhost:9999/vue/board";
+            axios.put(url, {
+                userid: this.article.userid,
+                subject: this.article.subject,
+                content: this.article.content,
+                articleno: this.article.articleno,
+            });
             this.$router.push("/board/list");
         },
 
@@ -63,10 +62,10 @@ export default {
         // 비동기
         // TODO : 글번호에 해당하는 글정보 얻기.
         console.dir(this.$route);
-        this.article.userName = this.$route.params.name;
+        this.article.userid = this.$route.params.userid;
         this.article.subject = this.$route.params.subject;
         this.article.content = this.$route.params.content;
-        this.article.articleNo = this.$route.params.articleNo;
+        this.article.articleno = this.$route.params.articleno;
         console.dir(this.article);
     },
 };

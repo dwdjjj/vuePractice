@@ -2,8 +2,8 @@
     <div class="regist">
         <h1 class="underline">SSAFY 게시글 작성</h1>
         <div class="regist_form">
-            <label for="userName">작성자</label>
-            <input type="text" id="userName" ref="userName" v-model="article.userName" /><br />
+            <label for="userid">작성자</label>
+            <input type="text" id="userid" ref="userid" v-model="article.userid" /><br />
             <label for="subject">제목</label>
             <input type="text" id="subject" ref="subject" v-model="article.subject" /><br />
             <label for="content">내용</label>
@@ -17,18 +17,15 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name: "BoardWrite",
     data() {
         return {
-            articles: [],
             article: {},
         };
     },
-    created() {
-        let articles = JSON.parse(localStorage.getItem("articleList"));
-        this.articles = articles;
-    },
+    created() {},
     methods: {
         // 입력값 체크하기 - 체크가 성공하면 registArticle 호출
         checkValue() {
@@ -47,15 +44,18 @@ export default {
         registArticle() {
             // 비동기
             // TODO : 글번호에 해당하는 글정보 등록.
-            // let article = {
-            //     userName: this.userName,
-            //     subject: this.subject,
-            //     content: this.content,
-            // };
-            this.article.registerTime = new Date();
-            console.log(this.article);
-            this.articles.push(this.article);
-            localStorage.setItem("articleList", JSON.stringify(this.articles));
+            const url = "http://localhost:9999/vue/board";
+            axios
+                .post(url, {
+                    userid: this.article.userid,
+                    subject: this.article.subject,
+                    content: this.article.content,
+                    hit: 0,
+                    regtime: new Date(),
+                })
+                .then((res) => {
+                    console.log(res.data);
+                });
             this.$router.push("/board/list");
         },
 

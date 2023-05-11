@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
     name: "BoardDelete",
     data() {
@@ -14,18 +15,11 @@ export default {
     created() {
         // 비동기
         // TODO : 글번호에 해당하는 글을 삭제.
-        console.dir(this.$route);
+        let url = "http://localhost:9999/vue/board";
         this.no = this.$route.params.no;
-        console.log(this.no);
-        let articles = JSON.parse(localStorage.getItem("articleList"));
-        for (let i = 0; i < articles.length; i++) {
-            if (this.no === articles[i].articleNo) {
-                articles.splice(i, 1);
-                i--;
-            }
-        }
-        console.dir(articles);
-        localStorage.setItem("articleList", JSON.stringify(articles));
+        console.log(this.$route.params.no);
+        url += `/${this.no}`;
+        axios.delete(url);
     },
 };
 </script>
