@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http-common";
 import BoardListItem from "./BoardListItem.vue";
 export default {
     name: "BoardList",
@@ -47,9 +47,9 @@ export default {
     created() {
         // 비동기
         // TODO : 글목록 얻기.
-        const url = "http://localhost:9999/vue/board";
+        // const url = "http://localhost:9999/vue/board";
 
-        axios.get(url).then((response) => {
+        http.get("/board").then((response) => {
             console.log(response);
             this.boardlist = response.data;
         });

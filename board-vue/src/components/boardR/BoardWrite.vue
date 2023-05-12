@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http-common";
 export default {
     name: "BoardWrite",
     data() {
@@ -44,19 +44,21 @@ export default {
         registArticle() {
             // 비동기
             // TODO : 글번호에 해당하는 글정보 등록.
-            const url = "http://localhost:9999/vue/board";
-            axios
-                .post(url, {
-                    userid: this.article.userid,
-                    subject: this.article.subject,
-                    content: this.article.content,
-                    hit: 0,
-                    regtime: new Date(),
-                })
-                .then((res) => {
-                    console.log(res.data);
-                });
-            this.$router.push("/board/list");
+
+            http.post("/board", {
+                userid: this.article.userid,
+                subject: this.article.subject,
+                content: this.article.content,
+                hit: 0,
+                regtime: new Date(),
+            }).then(({ data }) => {
+                console.log(data);
+                let msg = "글 수정시 문제 발생!!";
+                if (data == "success") {
+                    this.article = data;
+                } else alert(msg);
+            });
+            this.moveList();
         },
 
         moveList() {

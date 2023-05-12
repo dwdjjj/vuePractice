@@ -17,12 +17,13 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http-common";
 export default {
     name: "BoardModify",
     data() {
         return {
-            article: {},
+            articleno: Number,
+            article: Object,
         };
     },
     methods: {
@@ -41,32 +42,35 @@ export default {
             else this.modifyArticle();
         },
         modifyArticle() {
-            console.log("글수정 하러가자!!!!");
+            console.log(this.article.articleno + "번 글수정 하러가자!!!!");
             // 비동기
             // TODO : 글번호에 해당하는 글정보 수정.
-            let url = "http://localhost:9999/vue/board";
-            axios.put(url, {
-                userid: this.article.userid,
-                subject: this.article.subject,
-                content: this.article.content,
-                articleno: this.article.articleno,
+
+            http.put(`/board`, this.article).then(({ data }) => {
+                let msg = "글 수정시 문제 발생!!";
+                console.dir(data);
+                if (data == "success") {
+                    this.article = data;
+                } else alert(msg);
             });
-            this.$router.push("/board/list");
+            this.moveList();
         },
 
         moveList() {
-            this.$router.push("/board/list");
+            this.$router.push({ name: "boardlist" });
         },
     },
     created() {
         // 비동기
         // TODO : 글번호에 해당하는 글정보 얻기.
-        console.dir(this.$route);
-        this.article.userid = this.$route.params.userid;
-        this.article.subject = this.$route.params.subject;
-        this.article.content = this.$route.params.content;
-        this.article.articleno = this.$route.params.articleno;
-        console.dir(this.article);
+        this.articleno = this.$route.params.no;
+        this.article = this.$route.params.article;
+        // this.article = {
+        //     articleno: this.articleno,
+        //     userid: this.$route.params.userid,
+        //     subject: this.$route.params.subject,
+        //     content: this.$route.params.content,
+        // };
     },
 };
 </script>

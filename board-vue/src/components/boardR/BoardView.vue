@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http-common";
 export default {
     name: "BoardView",
     data() {
@@ -37,24 +37,16 @@ export default {
     created() {
         // 비동기
         // TODO : 글번호에 해당하는 글정보 얻기.
-        let url = "http://localhost:9999/vue/board";
-        const curUrlArr = location.pathname.split("/");
-        const articleno = curUrlArr[curUrlArr.length - 1];
-        url += `/${articleno}`;
-        axios.get(url).then((res) => {
-            this.article = res.data;
+        this.articleno = this.$route.params.articleno;
+        http.get(`/board/${this.articleno}`).then(({ data }) => {
+            this.article = data;
         });
     },
     methods: {
         moveModify() {
             this.$router.push({
                 name: "boardmodify",
-                params: {
-                    userid: this.article.userid,
-                    subject: this.article.subject,
-                    content: this.article.content,
-                    articleno: this.article.articleno,
-                },
+                params: { articleno: this.article.articleno, article: this.article },
             });
         },
         moveList() {

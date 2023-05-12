@@ -38,7 +38,7 @@ const routes = [
                 component: loadBoard("BoardWrite"),
             },
             {
-                path: "view/:no",
+                path: "view/:articleno",
                 name: "boardview",
                 component: loadBoard("BoardView"),
             },

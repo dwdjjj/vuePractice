@@ -1,7 +1,12 @@
 <template>
     <tr>
         <td>{{ article.articleno }}</td>
-        <td @click="viewArticle(article.articleno)">{{ article.subject }}</td>
+        <!-- <td @click="viewArticle(article.articleno)">{{ article.subject }}</td> -->
+        <td>
+            <router-link :to="{ name: 'boardview', params: { articleno: article.articleno } }">
+                {{ article.subject }}
+            </router-link>
+        </td>
         <td>{{ article.userid }}</td>
         <td>{{ article.hit }}</td>
         <td>{{ article.regtime }}</td>

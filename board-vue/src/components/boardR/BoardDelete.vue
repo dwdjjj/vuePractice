@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import http from "@/util/http-common";
 export default {
     name: "BoardDelete",
     data() {
@@ -15,11 +15,20 @@ export default {
     created() {
         // 비동기
         // TODO : 글번호에 해당하는 글을 삭제.
-        let url = "http://localhost:9999/vue/board";
         this.no = this.$route.params.no;
-        console.log(this.$route.params.no);
-        url += `/${this.no}`;
-        axios.delete(url);
+        http.delete(`/board/${this.no}`).then(({ data }) => {
+            let msg = "글 삭세지 문제 발생!!";
+            console.dir(data);
+            if (data == "success") {
+                msg = "글 삭제 성공!";
+            } else alert(msg);
+            this.moveList();
+        });
+    },
+    methods: {
+        moveList() {
+            this.$router.push({ name: "boardlist" });
+        },
     },
 };
 </script>
