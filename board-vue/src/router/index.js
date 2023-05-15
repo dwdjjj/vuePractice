@@ -4,14 +4,14 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 function loadView(view) {
-    return () => import(/* webpackChunkName: "about" */ `@/views/${view}.vue`);
+    return () => import(/* webpackChunkName: "vies" */ `@/views/${view}.vue`);
 }
 
 function loadBoard(name) {
-    return () => import(/* webpackChunkName: "about" */ `@/components/boardR/${name}.vue`);
+    return () => import(/* webpackChunkName: "board" */ `@/components/boardR/${name}.vue`);
 }
 function loadMain(contentName) {
-    return () => import(/* webpackChunkName: "about" */ `@/components/main/${contentName}.vue`);
+    return () => import(/* webpackChunkName: "main" */ `@/components/main/${contentName}.vue`);
 }
 
 const routes = [
